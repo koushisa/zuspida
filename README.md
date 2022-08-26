@@ -42,6 +42,7 @@ export type Methods = DefineMethods<{
 zuspida 
 
 ```ts
+// `users` is zustand instance
 const users = zuspida(
   aspida.api.v1.users, 
   // register mutations
@@ -62,22 +63,18 @@ const users = zuspida(
 )
 
 const {
-  storeApi,  // zustand instance
-  getApi, // aspida.api.v1.user.$get
-  postApi, // aspida.api.v1.user.$postApi
-  ...etc // also putApi, patchApi, deleteApi, ...etc that defined by aspida
-} = users
-
-const {  
   data,
   loading, 
   error, 
-  mutations, // refetch, nextPage, prevPage, ...etc
-} = storeApi.getState()
+  mutations, // refetch, nextPage, prevPage, ...etc that defined by mutations
+  getApi, // aspida.api.v1.user.$get
+  postApi, // aspida.api.v1.user.$postApi
+  ...etc // also putApi, patchApi, deleteApi, ...etc that defined by aspida
+} = users.getState()
 
-// raw zustand store api
-storeApi.setState(/*~*/)
-storeApi.subscribe(/*~*/)
+// call zustand store api
+users.setState(/*~*/)
+users.subscribe(/*~*/)
 
 // mutations
 mutations.nextPage()
