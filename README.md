@@ -1,7 +1,7 @@
-# zuspida
+# zuspida (WIP)
 Created with CodeSandbox: https://codesandbox.io/s/github/koushisa/zuspida
 
-WIP: framework-agnostic [zustand](https://github.com/pmndrs/zustand) + [aspida](https://github.com/aspida/aspida) (+ maybe [tanstack query](https://github.com/TanStack/query)?) integration. 
+framework-agnostic [zustand](https://github.com/pmndrs/zustand) + [aspida](https://github.com/aspida/aspida) (+ maybe [tanstack query](https://github.com/TanStack/query)?) integration. 
 
 `api/v1/users/index.ts`
 ```ts
