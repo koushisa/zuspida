@@ -1,9 +1,7 @@
 # zuspida
 Created with CodeSandbox: https://codesandbox.io/s/github/koushisa/zuspida
 
-WIP: framework-agnostic zustand + aspida (+ maybe tanstack query?) integration. 
-
-aspida: https://github.com/aspida/aspida
+WIP: framework-agnostic [zustand](https://github.com/pmndrs/zustand) + [aspida](https://github.com/aspida/aspida) (+ maybe [tanstack query](https://github.com/TanStack/query)?) integration. 
 
 `api/v1/users/index.ts`
 ```ts
@@ -17,7 +15,7 @@ type User = {
 export type Methods = DefineMethods<{
   get: {
     query?: {
-      page: number
+      page: number,
       limit: number
     }
 
@@ -44,7 +42,7 @@ export type Methods = DefineMethods<{
 zuspida 
 
 ```ts
-const userResource = zuspida(
+const users = zuspida(
   aspida.api.v1.users, 
   // register mutations
   { 
@@ -65,10 +63,10 @@ const userResource = zuspida(
 
 const {
   storeApi,  // zustand instance
-  getApi, // aspida.api.v1.user.$get()
-  postApi, // aspida.api.v1.user.$postApi()
-  ...etc // also putApi, patchApi, deleteApi, ...etc
-} = userResource
+  getApi, // aspida.api.v1.user.$get
+  postApi, // aspida.api.v1.user.$postApi
+  ...etc // also putApi, patchApi, deleteApi, ...etc that defined by aspida
+} = users
 
 const {  
   data,
@@ -76,6 +74,7 @@ const {
   error, 
   mutations, // nextPage, prevPage
 } = storeApi.getState()
+
 // raw zustand store api
 storeApi.setState(/*~*/)
 storeApi.subscribe(/*~*/)
@@ -89,7 +88,7 @@ mutations.prevPage()
   postApi.call({ body: data })
 }
 
-// call post and refetch on success (automatic cache invalidate)
+// call post and refetch on success (cache invalidate)
 (data) => {
   postApi.call({ body: data }, {refetchOnSuccess: true })
 }
