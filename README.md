@@ -72,7 +72,7 @@ const {
   data,
   loading, 
   error, 
-  mutations, // nextPage, prevPage
+  mutations, // refetch, nextPage, prevPage, ...etc
 } = storeApi.getState()
 
 // raw zustand store api
