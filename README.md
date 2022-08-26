@@ -3,30 +3,86 @@ Created with CodeSandbox: https://codesandbox.io/s/github/koushisa/zuspida
 
 WIP: framework-agnostic zustand + aspida (+ maybe tanstack query?) integration. 
 
+aspida: https://github.com/aspida/aspida
+
+`api/v1/users/index.ts`
+```ts
+import { DefineMethods } from 'aspida'
+
+type User = {
+  id: number
+  name: string
+}
+
+export type Methods = DefineMethods<{
+  get: {
+    query?: {
+      page: number
+      limit: number
+    }
+
+    resBody: User[]
+  }
+
+  post: {
+    reqBody: {
+      name: string
+    }
+
+    resBody: User
+    /**
+     * reqHeaders(?): ...
+     * reqFormat: ...
+     * status: ...
+     * resHeaders(?): ...
+     * polymorph: [...]
+     */
+  }
+}>
+```
+
+zuspida 
+
 ```ts
 const userResource = zuspida(
-  aspida.api.v1.user, 
+  aspida.api.v1.users, 
   // register mutations
-  {
-    nextPage:(store) => () => {
-      return store.page + 1
-    }
-    prevPage(store) => () => {
-      return store.page - 1
+  { 
+    state: {
+      page: 1,
+      limit: 5,
+    },
+    mutations: {
+      nextPage:(store) => () => {
+        return store.setState((s)=> { page: s.page + 1})
+      }
+      prevPage(store) => () => {
+        return store.setState((s)=> { page: s.page - 1})
+      }
     }
   }
 )
 
 const {
-  data,
-  loading, 
-  error, 
-  mutations, // nextPage, prevPage
   storeApi,  // zustand instance
   getApi, // aspida.api.v1.user.$get()
   postApi, // aspida.api.v1.user.$postApi()
   ...etc // also putApi, patchApi, deleteApi, ...etc
 } = userResource
+
+const {  
+  data,
+  loading, 
+  error, 
+  mutations, // nextPage, prevPage
+} = storeApi.getState()
+// raw zustand store api
+storeApi.setState(/*~*/)
+storeApi.subscribe(/*~*/)
+
+// mutations
+mutations.nextPage()
+mutations.prevPage()
 
 // call post 
 (data) => {
@@ -43,13 +99,5 @@ const {
   postApi.call({ body: data }, {optimisticData: (current) => [...current, data]})
 }
 
-// pagination
-mutations.nextPage()
-mutations.prevPage()
-
-// zustand store api
-storeApi.getState()
-storeApi.setState(/*~*/)
-storeApi.subscribe(/*~*/)
 ```
 
