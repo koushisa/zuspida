@@ -4,7 +4,7 @@ Created with CodeSandbox: https://codesandbox.io/s/github/koushisa/zuspida
 WIP: framework-agnostic zustand + aspida (+ maybe tanstack query?) integration. 
 
 ```ts
-const userStore = zuspida(
+const userResource = zuspida(
   aspida.api.v1.user, 
   // register mutations
   {
@@ -26,7 +26,7 @@ const {
   getApi, // aspida.api.v1.user.$get()
   postApi, // aspida.api.v1.user.$postApi()
   ...etc // also putApi, patchApi, deleteApi, ...etc
-} = userStore
+} = userResource
 
 // call post 
 (data) => {
