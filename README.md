@@ -45,18 +45,33 @@ zuspida
 // `users` is zustand instance
 const users = zuspida(
   aspida.api.v1.users, 
-  // register mutations
   { 
     state: {
       page: 1,
       limit: 5,
     },
+    // you can define custom mutations with 
     mutations: {
-      nextPage:(store) => () => {
+      nextPage: store => () => {
         return store.setState((s)=> { page: s.page + 1})
-      }
-      prevPage(store) => () => {
+      },
+      prevPage: store => () => {
         return store.setState((s)=> { page: s.page - 1})
+      },
+      peek: store => () => {
+        const {
+          data: {
+            response,
+            page,   
+            limit,
+          },
+          loading, 
+          error, 
+          mutations, 
+          getApi, 
+          postApi,
+          ...etc
+        } = store
       }
     }
   }
