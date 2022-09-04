@@ -60,6 +60,9 @@ const users = zuspida(
       prevPage: store => () => {
          store.getState().getApi.reload(s=> ({page: s.page - 1}))
       },
+      updatePage: store => (nextPage: number) => {
+         store.getState().getApi.reload(s=> ({page: nextPage}))
+      },
       peek: store => () => {
         const {
           data: {
@@ -96,6 +99,7 @@ users.subscribe(/*~*/)
 // mutations
 mutations.nextPage()
 mutations.prevPage()
+mutations.updatePage(3)
 
 // call post 
 (data) => {
