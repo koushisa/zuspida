@@ -101,7 +101,11 @@ mutations.nextPage()
 mutations.prevPage()
 mutations.updatePage(3)
 
-// call post 
+// getApi
+getApi.refetch()
+getApi.reload({page: 3})
+
+// posApi
 (data) => {
   postApi.call({ body: data })
 }
