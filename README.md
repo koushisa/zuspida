@@ -46,28 +46,30 @@ zuspida
 const users = zuspida(
   aspida.api.v1.users, 
   { 
-    state: {
-      page: 1,
-      limit: 5,
+    options: {
+      query: {
+        page: 1,
+        limit: 5,
+      }
     },
     // you can define custom mutations with 
     mutations: {
       nextPage: store => () => {
-        return store.setState((s)=> { page: s.page + 1})
+         store.getState().getApi.reload(s=> ({page: s.page + 1}))
       },
       prevPage: store => () => {
-        return store.setState((s)=> { page: s.page - 1})
+         store.getState().getApi.reload(s=> ({page: s.page - 1}))
       },
       peek: store => () => {
         const {
           data: {
             response,
-            page,   
-            limit,
+            options
           },
-          loading, 
-          error, 
-          mutations, 
+          mutations: {
+            nextPage,
+            prevPage,
+          }, 
           getApi, 
           postApi,
           ...etc
@@ -81,10 +83,10 @@ const {
   data,
   loading, 
   error, 
-  mutations, // refetch, nextPage, prevPage, ...etc that defined by mutations
-  getApi, // aspida.api.v1.user.$get
-  postApi, // aspida.api.v1.user.$postApi
-  ...etc // also putApi, patchApi, deleteApi, ...etc that defined by aspida
+  mutations, // refetch, nextPage, prevPage, ...etc that is defined in mutations
+  getApi, // wrapper for aspida.api.v1.user.$get
+  postApi, // wrapper for aspida.api.v1.user.$postApi
+  ...etc // also putApi, patchApi, deleteApi, ...etc that is defined in aspida
 } = users.getState()
 
 // call zustand store api
