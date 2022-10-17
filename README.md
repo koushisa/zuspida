@@ -44,16 +44,20 @@ export type Methods = DefineMethods<{
 zuspida 
 
 ```ts
+const initialOptions = {
+  query: {
+    page: 1,
+    limit: 5,
+  }
+}
+
 // `users` is zustand instance
 const users = zuspida(
   aspida.api.v1.users, 
   { 
-    options: {
-      query: {
-        page: 1,
-        limit: 5,
-      }
-    },
+    // options for aspida
+    options: initialOptions,
+ 
     // you can define custom mutations with 
     mutations: {
       nextPage: store => () => {
