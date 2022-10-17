@@ -111,19 +111,19 @@ mutations.updatePage(3)
 getApi.refetch()
 getApi.reload({ page: 3 })
 
-// posApi
+// postApi
 (data) => {
   postApi.call({ body: data })
 }
 
 // call post and refetch on success (cache invalidate)
 (data) => {
-  postApi.call({ body: data }, {refetchOnSuccess: true })
+  postApi.call({ body: data }, { refetchOnSuccess: true })
 }
 
 // optimistic update
 (data) => {
-  postApi.call({ body: data }, {optimisticData: (current) => [...current, data]})
+  postApi.call({ body: data }, { optimisticData: (current) => [...current, data] })
 }
 
 ```
