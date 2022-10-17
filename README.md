@@ -1,7 +1,9 @@
 # zuspida (WIP)
 Created with CodeSandbox: https://codesandbox.io/s/github/koushisa/zuspida
 
-framework-agnostic [zustand](https://github.com/pmndrs/zustand) + [aspida](https://github.com/aspida/aspida) (+ maybe [tanstack query](https://github.com/TanStack/query)?) integration. 
+Framework-agnostic [zustand](https://github.com/pmndrs/zustand) + [aspida](https://github.com/aspida/aspida) (+ maybe [tanstack query](https://github.com/TanStack/query)?) integration. 
+
+Referenced from: https://github.com/koushisa/recoil-aspida-architecture
 
 `api/v1/users/index.ts`
 ```ts
