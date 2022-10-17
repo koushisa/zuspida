@@ -109,7 +109,7 @@ mutations.updatePage(3)
 
 // getApi
 getApi.refetch()
-getApi.reload({page: 3})
+getApi.reload({ page: 3 })
 
 // posApi
 (data) => {
